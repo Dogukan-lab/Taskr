@@ -1,50 +1,47 @@
 ﻿
 using TaskR.DB;
+using TaskR.Model;
 
 namespace TaskR.Repository
 {
-    public class TaskrRepository : ITaskrRepository
+    public class TaskrRepository(TaskrContext taskrContext) : ITaskrRepository
     {
-        private readonly TaskrContext _taskrContext;
-        TaskrRepository(TaskrContext taskrContext)
+        public bool AddTask(Taskr? task)
         {
-            _taskrContext = taskrContext;
-        }
-
-        public bool AddTask(Task task)
-        {
-            var res =_taskrContext.Tasks.Find(task.Id);
+            if (task == null)
+                return false;
+            
+            var res = taskrContext.Tasks.Find(task.Id);
             if (res != null)
             {
                 return false;
-            } else
-            {
-                _taskrContext.Add(task);
-                return _taskrContext.SaveChanges() > 0;
             }
+
+            taskrContext.Add(task);
+            return taskrContext.SaveChanges() > 0;
         }
 
         public bool DeleteTask(int id)
         {
-            var task = _taskrContext.Tasks.FirstOrDefault(res => res.Id == id);
-            _ = _taskrContext.Remove(task);
-            return _taskrContext.SaveChangesAsync().GetAwaiter().GetResult() > 0;
+            var task = taskrContext.Tasks.FirstOrDefault(res => res.Id == id);
+            _ = taskrContext.Remove(task);
+            return taskrContext.SaveChangesAsync().GetAwaiter().GetResult() > 0;
         }
 
-        public ICollection<Task> GetAllTasks()
+        public ICollection<Taskr> GetAllTasks()
         {
-            return _taskrContext.Tasks.ToList();
+            return taskrContext.Tasks.ToList();
         }
 
-        public Task GetTask(int id)
+        public Taskr GetTask(int id)
         {
-            var task = _taskrContext.Tasks.FirstOrDefault(res => res.Id == id);
+            var task = taskrContext.Tasks.FirstOrDefault(res => res.Id == id);
             return task == null ? throw (new Exception("User not found!")) : task;
         }
 
-        public bool UpdateTask(Task task)
+        public bool UpdateTask(Taskr task)
         {
-            _taskrContext.Update(task);
+            taskrContext.Update(task);
             return true;
         }
     }

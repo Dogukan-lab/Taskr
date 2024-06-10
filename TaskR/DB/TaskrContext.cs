@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TaskR.Model;
 
 namespace TaskR.DB
 {
@@ -7,7 +8,6 @@ namespace TaskR.DB
         public TaskrContext(DbContextOptions<TaskrContext> options): base(options)
         {}
 
-        public DbSet<Task> Tasks { get; set; }
-
+        public DbSet<Taskr> Tasks { get; set; }
     }
 }

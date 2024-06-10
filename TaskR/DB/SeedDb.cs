@@ -22,7 +22,13 @@ namespace TaskR.DB
         {
             using var serviceScope = applicationBuilder.ApplicationServices.CreateScope();
             var dbContext = serviceScope.ServiceProvider.GetService<TaskrContext>();
-            
+
+            SeedInternal(dbContext);
+
+        }
+
+        public static void SeedInternal(TaskrContext dbContext)
+        {
             if(dbContext is null)
             {
                 throw (new Exception($"Exited seed database with: {RUNTIME.DB_CONTEXT_NULL}"));
