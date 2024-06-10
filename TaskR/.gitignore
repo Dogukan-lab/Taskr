@@ -10,10 +10,10 @@
 *.userosscache
 *.sln.docstates
 
+.idea
 /shelf/
 /workspace.xml
 # Rider ignored files
-/.idea.pmbackend.iml
 /modules.xml
 /contentModel.xml
 /projectSettingsUpdater.xml
@@ -22,7 +22,6 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-/.idea.pmbackend/.idea/workspace.xml
 
 
 
