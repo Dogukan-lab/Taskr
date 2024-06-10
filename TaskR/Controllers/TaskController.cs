@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using TaskR.Model;
 using TaskR.Repository;
 
 namespace TaskR.Controllers
@@ -29,7 +30,7 @@ namespace TaskR.Controllers
         }
 
         [HttpPut("UpdateTask")]
-        public IActionResult UpdateTask(Task task)
+        public IActionResult UpdateTask(Taskr task)
         {
             var  result = _taskrRepository.UpdateTask(task);
             
@@ -37,7 +38,7 @@ namespace TaskR.Controllers
         }
 
         [HttpPost("AddTask")]
-        public IActionResult AddTask(Task task)
+        public IActionResult AddTask(Taskr task)
         {
             var result = _taskrRepository.AddTask(task);
 

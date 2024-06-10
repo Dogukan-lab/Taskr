@@ -1,0 +1,30 @@
+﻿version: '3.9'
+volumes:
+  data:
+services:
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: test1
+      MYSQL_DATABASE: taskr
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: devtest123
+    volumes:
+      - data:/var/lib/mysql
+      - ./dev/mariadb:/docker-entrypoint-initdb.d
+    ports:
+      - "4093:4093"
+
+  taskr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on: 
+      - db
+    ports:
+      - "5134:8080"
+    networks:
+      - webnet
+        
+networks:
+  webnet:
